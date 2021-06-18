@@ -1,7 +1,7 @@
 class Grid(private val size: Int) {
     private val empty = '.'
 
-    private val grid: Array<Array<Char>> = Array(size) { Array(size) { '.' } }
+    private val grid: Array<Array<Char>> = Array(size) { Array(size) { empty } }
 
     fun set(string: String) {
         val start = grid[size - 1].indexOf(empty)
@@ -26,8 +26,6 @@ class Grid(private val size: Int) {
         }
     }
 
-    fun get(i: Pair<Int, Int>) = grid[i.first - 1][i.second - 1]
-
     fun level(level: Int): String {
         val charArray = CharArray(level)
         for (i in 0 until level) {
@@ -36,19 +34,16 @@ class Grid(private val size: Int) {
         return charArray.concatToString()
     }
 
-    fun check() = grid.forEach { it.contains('.') }
-
     fun print() {
         val chars = mutableListOf<Char>()
 
         for (i in 0 until size) {
             for (j in 0 until size) {
                 chars.add(grid[j][i])
-                chars.add(' ')
-                chars.add(' ')
             }
             chars.add('\n')
         }
-        chars.forEach { print(it.uppercase()) }
+        val stringBuilder = StringBuilder()
+        chars.forEach { stringBuilder.append(it) }.also { print(stringBuilder.toString()) }
     }
 }
